@@ -809,6 +809,7 @@ class _HouseListState extends State<HouseList> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextField(
+                  controller: _searchController,
                   decoration: InputDecoration(
                     hintText: 'Search...',
                     border: InputBorder.none,
@@ -883,7 +884,7 @@ class _HouseListState extends State<HouseList> {
                         ),
                         SizedBox(height: 14.0),
                         SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
+                          //scrollDirection: Axis.horizontal,
                           child: Row(
                             children: [
                               filterButton(Icons.house_rounded, "Car Rental", _hasBeenPressed1, 1),
@@ -899,7 +900,29 @@ class _HouseListState extends State<HouseList> {
                           color: Colors.grey,
                         ),
                         SizedBox(height: 10.0),
-                        Expanded(child: ListCar()),
+                        Expanded(child: ListCar(carItems: [
+                                CarItem(
+                                    name: "Civic",
+                                    price: 123,
+                                    image: "/Users/nandrajog/Downloads/rental_property/lib/logo6.jpeg",
+                                    color: "white",
+                                    gearbox: "automatic",
+                                    fuel: "petrol",
+                                    brand: "Honda",
+                                    rating: "4.5",
+                                    location: "Port-Louis", description: 'sd',
+                                ),
+                                
+                                CarItem(
+                                    name: "8 Series",
+                                    price: 123,
+                                    image: "/Users/nandrajog/Downloads/rental_property/lib/logo6.jpeg",
+                                    color: "blue",
+                                    gearbox: "automatic",
+                                    fuel: "petrol",
+                                    brand: "BMW",
+                                    rating: "4.5",
+                                    location: "Port-Louis", description: 'ds'),],controller : _searchController, )),
                       ],
                     ),
                   ),

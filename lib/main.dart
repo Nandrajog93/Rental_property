@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:rental_property/house_search/house_listing.dart';
 import 'package:rental_property/src/homepage.dart';
 import 'package:rental_property/src/settings/Tabview.dart';
 import 'package:rental_property/src/settings/auth_page.dart';
@@ -26,15 +27,15 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    name:"RentalProperty",
+   // name:"RentalProperty",
     options: FirebaseOptions(
         apiKey: "AIzaSyD7t0uVA2OrPiUVhZNL5dW1cs7_1hxxzUc",
       //authDomain: "rentalproperty-ea845.firebaseapp.com",
       projectId: "rentalproperty-ea845",
     //  storageBucket: "rentalproperty-ea845.appspot.com",
       messagingSenderId: "829048327348",
-      appId: "1:829048327348:ios:4282fa7dd32589bca69be1",
-     // appId:   "1:829048327348:web:198d4f49ce710472a69be1",
+    //  appId: "1:829048327348:ios:4282fa7dd32589bca69be1",
+      appId:   "1:829048327348:web:198d4f49ce710472a69be1",
      // measurementId: "G-PLSBFWPPFJ"
            ),
   );

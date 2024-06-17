@@ -509,6 +509,7 @@ class ImageGrid extends StatefulWidget {
 }
 
 class _ImageGridState extends State<ImageGrid> {
+  
   final TextEditingController _searchController = TextEditingController();
   late List<ImageItem> _filteredImages;
 

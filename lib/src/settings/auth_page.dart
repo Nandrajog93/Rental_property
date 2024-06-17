@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rental_property/house_search/house_listing.dart';
 import 'package:rental_property/src/settings/Tabview.dart';
 import 'package:rental_property/src/settings/login.dart';
 
@@ -22,7 +23,7 @@ class _CheckUserState extends State<CheckUser> {
       builder: (context,snapshot){
         if(snapshot.hasData){
            //print("User ID: ${user}");
-          return ImageSearchScreen();
+          return HouseList();
           
         }
         else {

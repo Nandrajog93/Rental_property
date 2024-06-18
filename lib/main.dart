@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:rental_property/house_search/house_listing.dart';
+import 'package:rental_property/map_test.dart';
 import 'package:rental_property/src/homepage.dart';
 import 'package:rental_property/src/settings/Tabview.dart';
 import 'package:rental_property/src/settings/auth_page.dart';
@@ -22,6 +23,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 // import 'shared/navigation/app_router.dart';
 import '/src/color.dart';
+import 'house_search/list_house_wigdet.dart';
 
 void main() async {
 
@@ -63,7 +65,7 @@ class MyApp extends StatelessWidget {
        //colorScheme: Colors.white,
 
       ),
-      home:  CheckUser(),
+      home:  HouseList(),
     );
   }
 }

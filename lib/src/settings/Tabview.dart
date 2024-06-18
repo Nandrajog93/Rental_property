@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:rental_property/src/Grid_search_bar.dart';
 
+import '../../house_search/house_listing.dart';
+
 class ImageSearchScreen extends StatefulWidget {
   @override
   _ImageSearchScreenState createState() => _ImageSearchScreenState();
@@ -86,7 +88,10 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
               ],
             )
     ),
-            Text(''),
+     Scaffold(
+      body: HouseList(),
+    ),
+           // Text(''),
             Text(''),
             Text(''),
           ],

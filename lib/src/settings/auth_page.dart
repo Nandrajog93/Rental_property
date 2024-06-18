@@ -23,7 +23,7 @@ class _CheckUserState extends State<CheckUser> {
       builder: (context,snapshot){
         if(snapshot.hasData){
            //print("User ID: ${user}");
-          return HouseList();
+          return ImageSearchScreen();
           
         }
         else {

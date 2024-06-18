@@ -212,7 +212,7 @@
 //                         SizedBox(
 //                           height: 10.0,
 //                         ),
-//                         Expanded(child: ListCar()),
+//                         Expanded(child: ListHouse()),
 //                       ],
 //                     ),
 //                   ),
@@ -629,7 +629,7 @@
 //                           color: Colors.grey,
 //                         ),
 //                         SizedBox(height: 10.0),
-//                         Expanded(child: ListCar()),
+//                         Expanded(child: ListHouse()),
 //                       ],
 //                     ),
 //                   ),
@@ -688,7 +688,7 @@
 //     );
 //   }
 
-//   // Widget ListCar() {
+//   // Widget ListHouse() {
 //   //   // Replace this with your actual list view for cars
 //   //   return ListView.builder(
 //   //     itemCount: 10,
@@ -700,15 +700,17 @@
 //   //   );
 //   // }
 // }
-
+//import 'package:google_maps/google_maps.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rental_property/house_search/houses.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+//import 'package:google_maps/google_maps.dart';
+import 'package:rental_property/house_search/google_maps_widget.dart';
 //import 'package:rental_property/house_search/houses.dart';
 import 'package:rental_property/house_search/list_house_wigdet.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'houses.dart';
+//import 'houses.dart';
 
 class DeviceConfig {
   static int getCrossAxisCount(BuildContext context) {
@@ -767,7 +769,7 @@ class DeviceConfig {
 }
 
 class HouseList extends StatefulWidget {
-   //final List<CarItem> images;
+   //final List<HouseItem> images;
 
   //const HouseList({Key? key, required this.images}) : super(key: key);
 
@@ -777,7 +779,8 @@ class HouseList extends StatefulWidget {
 
 class _HouseListState extends State<HouseList> {
   final TextEditingController _searchController = TextEditingController();
-  //final List<CarItem> images;
+  LatLng _mapCenter = LatLng(1.3521, 103.8198);
+
 
 
 
@@ -787,7 +790,7 @@ class _HouseListState extends State<HouseList> {
   bool _hasBeenPressed3 = false;
   bool _hasBeenPressed4 = false;
 
-
+  
 
 
   @override
@@ -890,7 +893,7 @@ class _HouseListState extends State<HouseList> {
                               filterButton(Icons.house_rounded, "Car Rental", _hasBeenPressed1, 1),
                               filterButton(Icons.electric_car, "Electric Car", _hasBeenPressed2, 2),
                               filterButton(Icons.edit_location, "Nearby", _hasBeenPressed3, 3),
-                              filterButton(Icons.car_repair, "Car Repair", _hasBeenPressed4, 4),
+                             // filterButton(Icons.car_repair, "Car Repair", _hasBeenPressed4, 4),
                             ],
                           ),
                         ),
@@ -900,8 +903,9 @@ class _HouseListState extends State<HouseList> {
                           color: Colors.grey,
                         ),
                         SizedBox(height: 10.0),
-                        Expanded(child: ListCar(carItems: [
-                                CarItem(
+                        Expanded(child: ListHouse(
+                                houseItems: [
+                                HouseItem(
                                     name: "Civic",
                                     price: 123,
                                     image: "/Users/nandrajog/Downloads/rental_property/lib/logo6.jpeg",
@@ -911,9 +915,11 @@ class _HouseListState extends State<HouseList> {
                                     brand: "Honda",
                                     rating: "4.5",
                                     location: "Port-Louis", description: 'sd',
+                                    latitude: 20.1609,
+                                    longitude: -74.9823,
                                 ),
                                 
-                                CarItem(
+                                  HouseItem(
                                     name: "8 Series",
                                     price: 123,
                                     image: "/Users/nandrajog/Downloads/rental_property/lib/logo6.jpeg",
@@ -922,7 +928,33 @@ class _HouseListState extends State<HouseList> {
                                     fuel: "petrol",
                                     brand: "BMW",
                                     rating: "4.5",
-                                    location: "Port-Louis", description: 'ds'),],controller : _searchController, )),
+                                    location: "Port-Louis", description: 'ds',
+                                    latitude: 20.1609,
+                                    longitude: -74.9823,),
+
+                                                                      HouseItem(
+                                    name: "8 Series",
+                                    price: 123,
+                                    image: "/Users/nandrajog/Downloads/rental_property/lib/logo5.jpeg",
+                                    color: "blue",
+                                    gearbox: "automatic",
+                                    fuel: "petrol",
+                                    brand: "BMW",
+                                    rating: "4.5",
+                                    location: "Port-Louis", description: 'ds',
+                                    latitude: 20.1609,
+                                    longitude: 1222,)
+                                    ],
+                                    
+                                    controller : _searchController,
+                                    
+                                    onHouseSelected: (HouseItem houseItem) {
+                                    setState(() {
+                                      _mapCenter = LatLng(houseItem.latitude, houseItem.longitude);
+                                    });
+                                    }    
+                               )
+                               ),
                       ],
                     ),
                   ),
@@ -935,9 +967,11 @@ class _HouseListState extends State<HouseList> {
                     width: double.maxFinite,
                     // Placeholder for Google Map
                     child: Center(
-                      child: Text('Google Map Placeholder'),
-                    ),
-                  ),
+                      child: CustomGoogleMap(center: _mapCenter),
+
+                      )
+
+                )
                 ),
               ],
             ),

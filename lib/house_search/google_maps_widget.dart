@@ -1,40 +1,39 @@
-// import 'dart:html';
-// import 'package:flutter/material.dart';
-// import 'package:google_maps/google_maps.dart';
-// import 'dart:ui_web' as ui;
+import 'dart:async';
+import 'dart:html';
+import 'package:flutter/material.dart';
+//import 'package:google_maps/google_maps.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'dart:ui_web' as ui;
+import 'package:web/src/dom/html.dart';
+//import 'package:google_maps/google_maps.dart';
 
-// import 'package:web/src/dom/html.dart';
+//import 'package:google_maps_flutter/google_maps_flutter.dart' as GoogleMaps;
 
-// class GoogleMap extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     String htmlId = "7";
-//     // ignore: undefined_prefixed_name
-//     ui.platformViewRegistry.registerViewFactory(htmlId, (int viewId) {
-//       final myLatlng = LatLng(1.3521, 103.8198);
+class CustomGoogleMap extends StatelessWidget {
+  final LatLng center;
 
-//       final mapOptions = MapOptions()
-//         ..zoom = 10
-//         ..center = LatLng(1.3521, 103.8198);
+  CustomGoogleMap({required this.center});
 
-//       final elem = DivElement()
-//         ..id = htmlId
-//         ..style.width = "99%"
-//         ..style.height = "100%"
-//         ..style.borderRadius = "20px"
-//         ..style.backgroundColor = "transparent"
-//         ..style.border = 'none';
+  @override
+  Widget build(BuildContext context) {
+    String htmlId = "7";
 
-//       final map = GMap(elem as HTMLElement?, mapOptions);
+    // This widget does not need the platformViewRegistry because it is for web platform.
 
-//       Marker(MarkerOptions()
-//         ..position = myLatlng
-//         ..map = map
-//         ..title = 'Hello World!'
-//       );
-
-//       return elem;
-//     });
-//     return HtmlElementView(viewType: htmlId);
-//   }
-// }
+    return GoogleMap(
+      initialCameraPosition: CameraPosition(
+        target: center,
+        zoom: 10,
+      ),
+      markers: Set<Marker>.of([
+        Marker(
+          markerId: MarkerId("selected_location"),
+          position: center,
+          infoWindow: InfoWindow(
+            title: 'Selected House Location',
+          ),
+        ),
+      ]),
+    );
+  }
+}

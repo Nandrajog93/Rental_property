@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:rental_property/data/data.dart';
 import 'package:rental_property/house_search/house_listing.dart';
 import 'package:rental_property/map_test.dart';
+import 'package:rental_property/src/Grid_search_bar.dart';
 import 'package:rental_property/src/homepage.dart';
 import 'package:rental_property/src/settings/Tabview.dart';
 import 'package:rental_property/src/settings/auth_page.dart';
@@ -65,7 +67,7 @@ class MyApp extends StatelessWidget {
        //colorScheme: Colors.white,
 
       ),
-      home:  HouseList(),
+      home:  ImageSearchScreen(),
     );
   }
 }

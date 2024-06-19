@@ -24,7 +24,7 @@ class  DeviceConfig{
         return 20;
     }
   }
-///Users/nandrajog/Downloads/rental_property/lib/download.png
+///home/utente/rental_property/lib/download.png
 
 static double getPadding(BuildContext context){
   var deviceType = getDeviceType(MediaQuery.of(context).size);
@@ -136,7 +136,7 @@ Widget buildMobileLayout (double textSize, double padding) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Center(
-          child: Image.asset('/Users/nandrajog/Downloads/rental_property/lib/house.gif',
+          child: Image.asset('/home/utente/rental_property/lib/house.gif',
           fit: BoxFit.cover,
           height: 150,
           ),
@@ -339,7 +339,7 @@ Widget buildTabletLayout(double textSize, double padding) {
         Expanded(
           child: Center(
             child: Image.asset(
-              '/Users/nandrajog/Downloads/rental_property/lib/house.gif',
+              '/home/utente/rental_property/lib/house.gif',
               fit: BoxFit.cover,
             ),
           ),
@@ -456,7 +456,7 @@ Widget buildTabletLayout(double textSize, double padding) {
         Expanded(
           child: Center(
             child: Image.asset(
-              '/Users/nandrajog/Downloads/rental_property/lib/house.gif',
+              '/home/utente/rental_property/lib/house.gif',
               fit: BoxFit.cover,
             ),
           ),

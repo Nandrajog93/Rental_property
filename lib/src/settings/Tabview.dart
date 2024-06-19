@@ -25,7 +25,7 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
           backgroundColor: Colors.white,
           elevation: 0,
           title: Image.asset(
-            '/Users/nandrajog/Downloads/rental_property/lib/download.png',
+            '/home/utente/rental_property/lib/download.png',
             height: 50,
           ),
           bottom: const TabBar(
@@ -47,45 +47,27 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
            // SearchPage(),
             //SearchPage(),
          Scaffold(
-            body:  ImageGrid(
-              images: [
-                ImageItem(
-                  imagePath: '/Users/nandrajog/Downloads/rental_property/lib/logo6.jpeg',
-                  description: 'Description 1',
-                  expiration_: DateTime.now().add(Duration(hours: 1)),
-                ),
-                ImageItem(
-                  imagePath: '/Users/nandrajog/Downloads/rental_property/lib/logo4.jpeg',
-                  description: 'Description 2',
-                  expiration_: DateTime.now().add(Duration(hours: 3)),
-                ),
-                ImageItem(
-                  imagePath: '/Users/nandrajog/Downloads/rental_property/lib/logo5.jpeg',
-                  description: 'Description 3',
-                  expiration_: DateTime.now().add(Duration(hours: 7)),
-                ),
-              ],
-            )
+            body:  ImageGrid()
     ),
             Scaffold(
             body:  ImageGrid(
-              images: [
-                ImageItem(
-                  imagePath: '/Users/nandrajog/Downloads/rental_property/lib/logo6.jpeg',
-                  description: 'Description 1',
-                  expiration_: DateTime.now().add(Duration(hours: 1)),
-                ),
-                ImageItem(
-                  imagePath: '/Users/nandrajog/Downloads/rental_property/lib/logo4.jpeg',
-                  description: 'Description 2',
-                  expiration_: DateTime.now().add(Duration(hours: 3)),
-                ),
-                ImageItem(
-                  imagePath: '/Users/nandrajog/Downloads/rental_property/lib/logo5.jpeg',
-                  description: 'Description 3',
-                  expiration_: null,
-                ),
-              ],
+              // images: [
+              //   ImageItem(
+              //     imagePath: '/home/utente/rental_property/lib/logo6.jpeg',
+              //     description: 'Description 1',
+              //     expiration_: DateTime.now().add(Duration(hours: 1)),
+              //   ),
+              //   ImageItem(
+              //     imagePath: '/home/utente/rental_property/lib/logo4.jpeg',
+              //     description: 'Description 2',
+              //     expiration_: DateTime.now().add(Duration(hours: 3)),
+              //   ),
+              //   ImageItem(
+              //     imagePath: '/home/utente/rental_property/lib/logo5.jpeg',
+              //     description: 'Description 3',
+              //     expiration_: null,
+              //   ),
+              // ],
             )
     ),
      Scaffold(

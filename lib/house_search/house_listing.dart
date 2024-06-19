@@ -20,7 +20,7 @@
 //       default:
 //         return 2;
 //     }
-//   }
+//   }/home/utente/rental_property/lib/House_dataset/socal2/socal_pics/0.jpg
 
 //   static double getSearchBarWidth(BuildContext context) {
 //     var deviceType = getDeviceType(MediaQuery.of(context).size);
@@ -887,7 +887,7 @@ class _HouseListState extends State<HouseList> {
                         ),
                         SizedBox(height: 14.0),
                         SingleChildScrollView(
-                          //scrollDirection: Axis.horizontal,
+                          scrollDirection: Axis.horizontal,
                           child: Row(
                             children: [
                               filterButton(Icons.house_rounded, "Car Rental", _hasBeenPressed1, 1),
@@ -908,7 +908,7 @@ class _HouseListState extends State<HouseList> {
                                 HouseItem(
                                     name: "Civic",
                                     price: 123,
-                                    image: "/Users/nandrajog/Downloads/rental_property/lib/logo6.jpeg",
+                                    image: "/home/utente/rental_property/lib/logo6.jpeg",
                                     color: "white",
                                     gearbox: "automatic",
                                     fuel: "petrol",
@@ -922,7 +922,7 @@ class _HouseListState extends State<HouseList> {
                                   HouseItem(
                                     name: "8 Series",
                                     price: 123,
-                                    image: "/Users/nandrajog/Downloads/rental_property/lib/logo6.jpeg",
+                                    image: "/home/utente/rental_property/lib/logo6.jpeg",
                                     color: "blue",
                                     gearbox: "automatic",
                                     fuel: "petrol",
@@ -935,7 +935,7 @@ class _HouseListState extends State<HouseList> {
                                                                       HouseItem(
                                     name: "8 Series",
                                     price: 123,
-                                    image: "/Users/nandrajog/Downloads/rental_property/lib/logo5.jpeg",
+                                    image: "/home/utente/rental_property/lib/logo5.jpeg",
                                     color: "blue",
                                     gearbox: "automatic",
                                     fuel: "petrol",

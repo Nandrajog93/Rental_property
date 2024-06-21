@@ -23,10 +23,10 @@ class ImageItem {
     );
   }
 
-  @override
-  String toString() {
-    return 'ImageItem(imagePath: $imagePath, description: $description, expiration: $expiration)';
-  }
+ // @override
+ // String toString() {
+  //  return 'ImageItem(imagePath: $imagePath, description: $description, expiration: $expiration)';
+  //}
 }
 
 class DeviceConfig {
@@ -140,21 +140,21 @@ void _loadCsvData() async {
   try {
     // Load raw CSV data from the file
     final rawData = await rootBundle.loadString('/home/utente/rental_property/lib/House_dataset/socal3.csv');
-    print('Raw CSV Data:\n$rawData'); // Debug raw CSV data
+    //print('Raw CSV Data:\n$rawData'); // Debug raw CSV data
 
     // Ensure each line is treated as a separate row
     List<List<dynamic>> rowsAsListOfValues = const CsvToListConverter().convert(rawData, eol: '\n');
 
     // Debug parsed rows to ensure correct splitting
-    print('Parsed rows: $rowsAsListOfValues');
+    //print('Parsed rows: $rowsAsListOfValues');
 
     // Convert to ImageItem objects
     List<ImageItem> imageItems = rowsAsListOfValues.map((row) {
-      print('Row: $row'); // Debug each row
+     // print('Row: $row'); // Debug each row
       return ImageItem.fromCsv(row);
     }).toList();
 
-    print('Image Items: $imageItems'); // Debug ImageItem objects
+   // print('Image Items: $imageItems'); // Debug ImageItem objects
 
     setState(() {
       _allImages = imageItems;

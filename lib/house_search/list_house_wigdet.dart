@@ -1,45 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:csv/csv.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class HouseItem {
   final String name;
   final double price;
-  final String image;
-  final String color;
-  final String gearbox;
-  final String fuel;
-  final String brand;
-  final String rating;
+  final String imagePath;
   final String location;
   final String description;
   final double latitude;
   final double longitude;
-  //final TextEditingController search;
 
-  HouseItem( {
+  HouseItem({
     required this.name,
     required this.price,
-    required this.image,
-    required this.color,
-    required this.gearbox,
-    required this.fuel,
-    required this.brand,
-    required this.rating,
+    required this.imagePath,
     required this.location,
     required this.description,
     required this.latitude,
-    required this.longitude
-   // required TextEditingController this.search,
+    required this.longitude,
   });
+
+  factory HouseItem.fromCsv(List<dynamic> row) {
+    return HouseItem(
+      name: row[3].toString(),
+      price: row[8],
+      imagePath: row[1].toString(),
+      location: row[4].toString(),
+      description: row[4].toString(),
+      latitude: row[9],
+      longitude: row[10],
+    );
+  }
+
+  @override
+  String toString() {
+    return 'HouseItem(name: $name, price: $price, imagePath: $imagePath, location: $location, description: $description, latitude: $latitude, longitude: $longitude)';
+  }
 }
 
 class ListHouse extends StatefulWidget {
-  final List<HouseItem> houseItems;
   final TextEditingController controller;
   final Function(HouseItem) onHouseSelected;
 
   const ListHouse({
     Key? key,
-    required this.houseItems,
     required this.controller,
     required this.onHouseSelected,
   }) : super(key: key);
@@ -49,44 +55,71 @@ class ListHouse extends StatefulWidget {
 }
 
 class _ListHouseState extends State<ListHouse> {
-  late List<HouseItem> _filteredItems;
+  List<HouseItem> _filteredImages = [];
+  List<HouseItem> _allImages = [];
+  bool _isDataLoaded = false;
 
   @override
   void initState() {
     super.initState();
-    _filteredItems = List.from(widget.houseItems); // Initialize with all items
-    widget.controller.addListener(_onSearch); // Listen to changes in search text
+    _loadCsvData();
+    widget.controller.addListener(_onSearch);  // Add listener here
   }
 
-  @override
-  void dispose() {
-    widget.controller.removeListener(_onSearch); // Clean up listener
-    super.dispose();
+  void _loadCsvData() async {
+    try {
+      final rawData = await rootBundle.loadString('/home/utente/rental_property/lib/House_dataset/socal2.csv');
+      List<List<dynamic>> rowsAsListOfValues = const CsvToListConverter().convert(rawData, eol: '\n');
+
+      List<HouseItem> imageItems = rowsAsListOfValues.map((row) {
+        return HouseItem.fromCsv(row);
+      }).toList();
+
+      setState(() {
+        _allImages = imageItems;
+        _filteredImages = List.from(imageItems);
+        _isDataLoaded = true;
+      });
+    } catch (e) {
+      print('Error loading CSV data: $e');
+      setState(() {
+        _isDataLoaded = true;
+      });
+    }
   }
 
   void _onSearch() {
     final query = widget.controller.text.toLowerCase();
     setState(() {
       if (query.isEmpty) {
-        _filteredItems = List.from(widget.houseItems); // Reset to all items
+        _filteredImages = List.from(_allImages);
       } else {
-        _filteredItems = widget.houseItems.where((item) =>
-            item.name.toLowerCase().contains(query)).toList();
+        _filteredImages = _allImages.where((image) => image.name.toLowerCase().contains(query)).toList();
       }
     });
+    print('Filtered Images: $_filteredImages');
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onSearch);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (!_isDataLoaded) {
+      return Center(child: CircularProgressIndicator());
+    }
     return ListView.builder(
-      itemCount: _filteredItems.length,
+      itemCount: _filteredImages.length,
       itemBuilder: (context, index) {
-        final item = _filteredItems[index];
+        final item = _filteredImages[index];
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
             onTap: () {
-              widget.onHouseSelected(item); // Notify parent widget of selection
+              widget.onHouseSelected(item);
             },
             child: Container(
               height: 180,
@@ -103,10 +136,10 @@ class _ListHouseState extends State<ListHouse> {
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Image.asset(
-                        item.image,
+                        item.imagePath,
                         width: 120,
                         height: 120,
-                        fit: BoxFit.cover, // Adjust based on your image aspect ratio
+                        fit: BoxFit.cover,
                       ),
                     ),
                     Expanded(
@@ -116,7 +149,7 @@ class _ListHouseState extends State<ListHouse> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              item.brand,
+                              item.name,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
@@ -140,7 +173,7 @@ class _ListHouseState extends State<ListHouse> {
                                 Icon(Icons.circle, color: Colors.grey, size: 10),
                                 SizedBox(width: 5),
                                 Text(
-                                  item.fuel,
+                                  item.name,
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 14,
@@ -151,7 +184,7 @@ class _ListHouseState extends State<ListHouse> {
                                 Icon(Icons.circle, color: Colors.grey, size: 10),
                                 SizedBox(width: 5),
                                 Text(
-                                  item.color,
+                                  item.location,
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 14,
@@ -166,7 +199,7 @@ class _ListHouseState extends State<ListHouse> {
                                 Icon(Icons.star, color: Colors.yellow, size: 14),
                                 SizedBox(width: 5),
                                 Text(
-                                  item.rating,
+                                  item.latitude.toString(),
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 14,
@@ -181,7 +214,7 @@ class _ListHouseState extends State<ListHouse> {
                                 Icon(Icons.location_on, color: Colors.grey, size: 14),
                                 SizedBox(width: 5),
                                 Text(
-                                  item.location,
+                                  item.longitude.toString(),
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 12,
@@ -226,7 +259,9 @@ class _ListHouseState extends State<ListHouse> {
   Widget favoriteButton(IconData icon) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.grey, backgroundColor: Colors.transparent, shape: CircleBorder(),
+        foregroundColor: Colors.grey,
+        backgroundColor: Colors.transparent,
+        shape: CircleBorder(),
         padding: EdgeInsets.all(10),
         side: BorderSide(
           width: 1,

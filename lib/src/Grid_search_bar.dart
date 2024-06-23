@@ -1,5 +1,8 @@
+
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:rental_property/src/timer.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -7,19 +10,20 @@ import 'package:flutter/services.dart' show rootBundle;
 class ImageItem {
   final String imagePath;
   final String description;
-  final DateTime? expiration;
+  final int expiration;
 
   ImageItem({
     required this.imagePath,
     required this.description,
-    this.expiration,
+     required this.expiration,
   });
+  //  DateTime.now().add(Duration(hours: 7))
 
   factory ImageItem.fromCsv(List<dynamic> row) {
     return ImageItem(
-      imagePath: row.length > 1 ? row[1].toString() : '',
-      description: row.length > 3 ? row[3].toString() : '',
-      expiration: row.length > 3 && row[3] != null ? DateTime.tryParse(row[3]) : null,
+      imagePath: row.length > 1 ? row[9].toString() : '',
+      description: row.length > 3 ? row[1].toString() : '',
+       expiration: row[3]
     );
   }
 
@@ -139,7 +143,7 @@ class _ImageGridState extends State<ImageGrid> {
 void _loadCsvData() async {
   try {
     // Load raw CSV data from the file
-    final rawData = await rootBundle.loadString('/home/utente/rental_property/lib/House_dataset/socal3.csv');
+    final rawData = await rootBundle.loadString('/home/utente/rental_property/lib/House_dataset/house_data.csv');
     //print('Raw CSV Data:\n$rawData'); // Debug raw CSV data
 
     // Ensure each line is treated as a separate row
@@ -254,6 +258,10 @@ void _loadCsvData() async {
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: textSize),
                       ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(padding),
+                      child: Countdown(expiration: DateTime.now().add(Duration(hours: _filteredImages[index].expiration)), textSize:5)
                     ),
                   ],
                 ),

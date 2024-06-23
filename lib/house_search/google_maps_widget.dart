@@ -1,20 +1,25 @@
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
-//import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class LatLong {
   final String name;
   final double lat;
   final double long;
   final String location;
+  final String ImagePath;
 
   LatLong({
     required this.name,
     required this.lat,
     required this.long,
     required this.location,
+    required this.ImagePath,
   });
 }
 
@@ -29,18 +34,20 @@ class CustomGoogleMap extends StatefulWidget {
 }
 
 class CustomGoogleMapState extends State<CustomGoogleMap> {
-  late GoogleMapController mapController;
+  late Completer<GoogleMapController> _controller;
   Set<Marker> markers = {};
 
   @override
   void initState() {
     super.initState();
+    _controller = Completer();
     _loadMarkers();
   }
 
-  void moveCameraToPosition(double latitude, double longitude) {
-    mapController.animateCamera(
-      CameraUpdate.newLatLngZoom(LatLng(latitude, longitude), 5),
+  void moveCameraToPosition(double latitude, double longitude) async {
+    final controller = await _controller.future;
+    controller.animateCamera(
+      CameraUpdate.newLatLngZoom(LatLng(latitude, longitude), 10),
     );
   }
 
@@ -65,7 +72,7 @@ class CustomGoogleMapState extends State<CustomGoogleMap> {
   Widget build(BuildContext context) {
     return GoogleMap(
       onMapCreated: (GoogleMapController controller) {
-        mapController = controller;
+        _controller.complete(controller);
         _loadMarkers();
         WidgetsBinding.instance.addPostFrameCallback((_) {
           _showAllMarkers();
@@ -79,8 +86,10 @@ class CustomGoogleMapState extends State<CustomGoogleMap> {
     );
   }
 
-  void _showAllMarkers() {
+  void _showAllMarkers() async {
     if (markers.isEmpty) return;
+
+    final controller = await _controller.future;
 
     var bounds = LatLngBounds(
       southwest: LatLng(
@@ -93,12 +102,6 @@ class CustomGoogleMapState extends State<CustomGoogleMap> {
       ),
     );
 
-    mapController.animateCamera(CameraUpdate.newLatLngBounds(bounds, 50));
+    controller.animateCamera(CameraUpdate.newLatLngBounds(bounds, 50));
   }
 }
-
-
-
-
-
-

@@ -71,3 +71,16 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+//1) Add the page functionaliy >>> New page
+//2) Add the timmer functionality    >>> timer
+//3) Add main pages which are described in the presentation  with a button payment 
+//4) Add logout button  ****************************
+//5) Connect signup to firebase   ************************
+//7) Singup as a client         --->   Can't deloy 
+////8) SIngup as a customer     ---> 
+
+
+
+/// 6) Make it bit presenatble 

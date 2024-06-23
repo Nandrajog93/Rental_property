@@ -16,20 +16,23 @@ class ListItem {
   final double lat;
   final double long;
   final String location;
+  final String imagePath;
 
   ListItem({
     required this.name,
     required this.lat,
     required this.long,
     required this.location,
+    required this.imagePath
   });
 
   factory ListItem.fromCsv(List<dynamic> row) {
     return ListItem(
-      name: row[3].toString(),
-      lat: row[9],
-      long: row[10],  // Fix here, changed row[3] to row[4] for longitude
-      location: row[3].toString(),  // Assuming location is in row[2]
+      imagePath: row[5].toString(),
+      name: row[1].toString(),
+      lat: row[5],
+      long: row[6],  // Fix here, changed row[3] to row[4] for longitude
+      location: row[7].toString(),  // Assuming location is in row[2]
     );
   }
 
@@ -115,7 +118,7 @@ class _HouseListState extends State<HouseList> {
 
   void _loadCsvData() async {
     try {
-      final rawData = await rootBundle.loadString('/home/utente/rental_property/lib/House_dataset/socal2.csv'); // Ensure the path is correct
+      final rawData = await rootBundle.loadString('/home/utente/rental_property/lib/House_dataset/house_data.csv'); // Ensure the path is correct
       List<List<dynamic>> rowsAsListOfValues = const CsvToListConverter().convert(rawData, eol: '\n');
 
       List<ListItem> imageItems = rowsAsListOfValues.map((row) {
@@ -204,45 +207,7 @@ class _HouseListState extends State<HouseList> {
                             ],
                           ),
                         ),
-                         Container(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Filters',
-                                style: GoogleFonts.raleway(
-                                  color: Colors.black,
-                                  fontSize: 23,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  'More Filters',
-                                  textAlign: TextAlign.end,
-                                  style: GoogleFonts.raleway(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 14.0),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              filterButton(Icons.house_rounded, "Car Rental", _hasBeenPressed1, 1),
-                              filterButton(Icons.electric_car, "Electric Car", _hasBeenPressed2, 2),
-                              filterButton(Icons.edit_location, "Nearby", _hasBeenPressed3, 3),
-                             // filterButton(Icons.car_repair, "Car Repair", _hasBeenPressed4, 4),
-                            ],
-                          ),
-                        ),
+                         
                         SizedBox(height: 14.0),
                         Divider(
                           thickness: 0.5,
@@ -279,6 +244,7 @@ class _HouseListState extends State<HouseList> {
                         lat: item.lat,
                         long: item.long,
                         location: item.location,
+                        ImagePath: item.imagePath
                       );
                     }).toList(),
                   ),

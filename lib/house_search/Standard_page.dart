@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rental_property/house_search/Payment.dart';
+import 'package:rental_property/src/timer.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
@@ -165,8 +166,9 @@ class Standard_page extends StatefulWidget {
   final String address;
   final String price;
   final String pageText;
+  final int? expiration1;
 
-  const Standard_page ({required this.image1, required this.location, required this.description, required this.name, required this.address, required this.price, required this.pageText});
+  const Standard_page ({required this.expiration1,required this.image1, required this.location, required this.description, required this.name, required this.address, required this.price, required this.pageText});
 
   @override
   State<StatefulWidget> createState() => _Standard_pageState();
@@ -190,10 +192,11 @@ class _Standard_pageState extends State<Standard_page> {
     double cardHeight = DeviceConfig.getCardHeight(context);
     Color cardColor = Colors.white; 
 
-    return Scaffold(
+    return Container(
+      
 
-      appBar: AppBar(title: Center(child: Text(widget.pageText))),
-      body : Center(
+      //  appBar: AppBar(title: Center(child: Text(widget.pageText))),
+      child : Center(
         
         child: Card(
           color: cardColor,
@@ -246,7 +249,8 @@ Widget buildDesktopLayout (double textSize, double padding) {
                     widget.address,
                     // widget.latitude as String,
                     // widget.longitude as String,
-                    widget.price),
+                    widget.price,
+                    widget.expiration1),
             
           
             ],
@@ -256,7 +260,7 @@ Widget buildDesktopLayout (double textSize, double padding) {
   );
 }
 Widget _buildTextInfo(Color cardColor, String name, String description ,String location, 
-                        String address,  String price) {
+                        String address,  String price, int? expiration1) {
   return Container(
     color: cardColor,
     padding: EdgeInsets.all(10),
@@ -274,6 +278,18 @@ Widget _buildTextInfo(Color cardColor, String name, String description ,String l
         SizedBox(height: 5),
         Text('€ '+price.toString()+'.00', style: TextStyle(color: Colors.grey, fontSize: 14)),
                 SizedBox(height: 20),
+        
+        if (expiration1 != null)
+          Padding(
+              padding: EdgeInsets.all(10),
+              child: Countdown(expiration: DateTime.now().add(Duration(hours: expiration1)),monthlyPrice: 40000, textSize:5)
+              ),
+      
+
+ 
+        // Text('Expiration: $expiration'),
+        // Text('€ '+expiration.toString()+'.00', style: TextStyle(color: Colors.grey, fontSize: 14)),
+        //         SizedBox(height: 20),
         
 
         ElevatedButton(style: ElevatedButton.styleFrom(

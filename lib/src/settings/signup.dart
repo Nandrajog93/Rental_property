@@ -1,6 +1,7 @@
 //import 'dart:nativewrappers/_internal/vm/lib/internal_patch.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:rental_property/customer_owner.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:rental_property/src/settings/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -60,7 +61,7 @@ static double getPadding(BuildContext context){
 
     switch (deviceType) {
       case DeviceScreenType.desktop:
-        return 650.0;
+        return 800.0;
       case DeviceScreenType.tablet:
         return 550.0;
       case DeviceScreenType.mobile:
@@ -77,7 +78,7 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
 
-
+  String _userType = 'Cliente'; 
   final _emailController = TextEditingController();
   final _passwordController =TextEditingController();
   @override
@@ -170,8 +171,23 @@ Widget buildMobileLayout (double textSize, double padding) {
             customTextField("Password", "Enter Password", Icons.lock, true,textSize),
             SizedBox(height: padding/2),
             customTextField("Confirm Password", "Confirm Password", Icons.lock, true,textSize),
-            SizedBox(height: padding),
-            
+             SizedBox(height: padding / 2),
+                          DropdownButtonFormField<String>(
+                decoration: InputDecoration(labelText: 'Tipo di utente'),
+                // value: _userType,
+                items: ['Cliente', 'Proprietario'].map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (newValue) {
+                  setState(() {
+                    // _userType = newValue!;
+                  });
+                },
+              ),
+             SizedBox(height: padding ),
                 Container(
                width: double.infinity,
                 height: padding * 1.5,  
@@ -347,7 +363,7 @@ Widget buildTabletLayout(double textSize, double padding) {
       ],
     );
   }
-    Widget buildDesktopLayout(double textSize, double padding) {
+Widget buildDesktopLayout(double textSize, double padding) {
     return Row(
       children: [
         Expanded(
@@ -377,16 +393,35 @@ Widget buildTabletLayout(double textSize, double padding) {
                   ],
                 ),
                 SizedBox(height: padding),
-                customTextField("Username", "username", Icons.account_circle, false,textSize),
-                SizedBox(height: padding/2),
-                customTextField("Email", "you@example.com", Icons.mail, false,textSize),
-                SizedBox(height: padding/2),
-                customTextField("Password", "Enter Password", Icons.lock, true,textSize),
-                SizedBox(height: padding/2),
-                customTextField("Confirm Password", "Confirm Password", Icons.lock, true,textSize),
-                SizedBox(height: padding),
-
-
+                customTextField("Username", "username", Icons.account_circle, false, textSize),
+                SizedBox(height: padding / 2),
+                customTextField("Email", "you@example.com", Icons.mail, false, textSize),
+                SizedBox(height: padding / 2),
+                customTextField("Password", "Enter Password", Icons.lock, true, textSize),
+                SizedBox(height: padding / 2),
+                customTextField("Confirm Password", "Confirm Password", Icons.lock, true, textSize),
+                SizedBox(height: padding / 2),
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    labelText: 'Tipo di utente',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  value: _userType,
+                  items: ['Cliente', 'Proprietario'].map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setState(() {
+                      _userType = newValue!;
+                    });
+                  },
+                ),
+                SizedBox(height: padding / 2),
                 Container(
                   width: double.infinity,
                   height: padding * 1.5,
@@ -397,7 +432,21 @@ Widget buildTabletLayout(double textSize, double padding) {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.deepPurple),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) =>
+                              UserQuestionsPage(userType: _userType),
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            );
+                          },
+                        ),
+                      );
+                    },
                     child: Text(
                       "Sign Up",
                       style: TextStyle(
@@ -420,25 +469,23 @@ Widget buildTabletLayout(double textSize, double padding) {
                             fontSize: textSize * 0.4,
                           ),
                         ),
-                        WidgetSpan(
-                          child: SizedBox(width: 8),
-                        ),
                         TextSpan(
-                                            recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) => LoginScreen(),
-                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                          return FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          );
-                        },
-                      ),
-                    );
-                  },
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (context, animation, secondaryAnimation) =>
+                                      LoginScreen(),
+                                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                    return FadeTransition(
+                                      opacity: animation,
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
                           text: "Sign-In",
                           style: TextStyle(
                             color: Colors.deepPurple,

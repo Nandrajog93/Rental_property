@@ -44,6 +44,7 @@ dependencies:
   file_picker: ^8.0.5
   pay: ^2.0.0
   webview_flutter: ^4.8.0
+  flutter_spinkit: ^5.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:rental_property/customer_owner.dart';
 import 'package:rental_property/data/data.dart';
 import 'package:rental_property/house_search/house_listing.dart';
 import 'package:rental_property/map_test.dart';

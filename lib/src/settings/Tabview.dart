@@ -1,13 +1,16 @@
 //import 'dart:async';
 
+
+
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rental_property/house_search/Standard_page.dart';
+import 'package:rental_property/house_search/google_maps_widget.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:rental_property/src/Grid_search_bar.dart';
-
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../house_search/house_listing.dart';
 
 class HouseItem {
@@ -20,8 +23,9 @@ class HouseItem {
   final double longitude;
   final String address ;
   final String extraimage1;
+  final int expiration1;
 
-  HouseItem({
+  HouseItem( {
     required this.name,
     required this.price,
     required this.imagePath,
@@ -31,6 +35,7 @@ class HouseItem {
     required this.longitude,
     required this.address,
     required this.extraimage1,
+    required this.expiration1,
   });
 
 
@@ -45,6 +50,7 @@ class HouseItem {
       longitude: row[6],
       address: row[4].toString(),
       extraimage1: row[9].toString(),
+      expiration1: row[3]
     );
   }
 }
@@ -59,7 +65,12 @@ class ImageSearchScreen extends StatefulWidget {
 class _ImageSearchScreenState extends State<ImageSearchScreen> {
 
 List<HouseItem> imageItems = [];
+  // bool _isDataLoaded = false;
+
+  LatLng _mapCenter = LatLng(1.3521, 103.8198);
+  List<ListItem> listinfo = [];
   bool _isDataLoaded = false;
+  final GlobalKey<CustomGoogleMapState> _mapKey = GlobalKey<CustomGoogleMapState>();
 
 @override
   void initState() {
@@ -98,7 +109,7 @@ List<HouseItem> imageItems = [];
           backgroundColor: Colors.white,
           elevation: 0,
           title: Image.asset(
-            '/home/utente/rental_property/lib/assets/fire.svg',
+            '/home/utente/rental_property/lib/main_logo.jpeg',
             height: 50,
           ),
           bottom: const TabBar(
@@ -125,6 +136,7 @@ List<HouseItem> imageItems = [];
              Scaffold(body:  ImageGrid()),
             Scaffold(body: HouseList()),
            Scaffold(
+            appBar: AppBar(title: Center(child: Text('Affiti del Condivisi')),),
                     body: imageItems.isNotEmpty
                         ? Standard_page(
                             pageText: 'Affiti Condivisi',
@@ -134,10 +146,13 @@ List<HouseItem> imageItems = [];
                             name: imageItems[0].name,
                             address: imageItems[0].address,
                             price: imageItems[0].price.toString(),
+                            expiration1: null
+
                           )
                         : Center(child: Text('No Image Available')),
                   ),
                              Scaffold(
+                               appBar: AppBar(title: Center(child: Text('Affiti del Giorno')),),
                     body: imageItems.isNotEmpty
                         ? Standard_page(
                            pageText: 'Affiti del Giorno',
@@ -146,11 +161,12 @@ List<HouseItem> imageItems = [];
                             description: imageItems[0].description,
                             name: imageItems[0].name,
                             address: imageItems[0].address,
-                            price: imageItems[0].price.toString(),
+                            price: imageItems[0].price.toString(), expiration1: null,
                           )
                         : Center(child: Text('No Image Available')),
                   ),
                              Scaffold(
+                              appBar: AppBar(title: Center(child: Text('Affiti a Popolari')),),
                     body: imageItems.isNotEmpty
                         ? Standard_page(
                           pageText: 'Affiti Popolari',
@@ -159,11 +175,13 @@ List<HouseItem> imageItems = [];
                             description: imageItems[0].description,
                             name: imageItems[0].name,
                             address: imageItems[0].address,
-                            price: imageItems[0].price.toString(),
+                            price: imageItems[0].price.toString(), expiration1: null,
                           )
                         : Center(child: Text('No Image Available')),
                   ),
                              Scaffold(
+                     appBar: AppBar(title: Center(child: Text('Affiti a Lampo')),),
+                              
                     body: imageItems.isNotEmpty
                         ? Standard_page(
                           pageText: 'Affiti Lampo',
@@ -172,25 +190,96 @@ List<HouseItem> imageItems = [];
                             description: imageItems[0].description,
                             name: imageItems[0].name,
                             address: imageItems[0].address,
-                            price: imageItems[0].price.toString(),
+                            price: imageItems[0].price.toString(), expiration1: null,
                           )
                         : Center(child: Text('No Image Available')),
                   ),
-                             Scaffold(
-                    body: imageItems.isNotEmpty
-                        ? Standard_page(
-                          pageText: 'Affiti a Ribaso',
-                            image1: imageItems[0].imagePath,
-                            location: imageItems[0].location,
-                            description: imageItems[0].description,
-                            name: imageItems[0].name,
-                            address: imageItems[0].address,
-                            price: imageItems[0].price.toString(),
-                          )
-                        : Center(child: Text('No Image Available')),
-                  ),
+                  //            Scaffold(
+                  //   body: imageItems.isNotEmpty
+                  //       ? Standard_page(
+                  //         pageText: 'Affiti a Ribaso',
+                  //           image1: imageItems[0].imagePath,
+                  //           location: imageItems[0].location,
+                  //           description: imageItems[0].description,
+                  //           name: imageItems[0].name,
+                  //           address: imageItems[0].address,
+                  //           price: imageItems[0].price.toString(),
+                  //         )
+                  //       : Center(child: Text('No Image Available')),
+                  // ),
+
+
+
+
+
+
+
+
+
+
+             Scaffold(
+              appBar: AppBar(title: Center(child: Text('Affiti a Ribaso')),),
+              body: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                flex: 2,
+                child: ListView.builder(
+                  itemCount: imageItems.length,
+                  itemBuilder: (context, index) {
+                    final item = imageItems[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Standard_page(
+                        pageText: 'Affiti a Ribaso',
+                        image1: item.imagePath,
+                        location: item.location,
+                        description: item.description,
+                        name: item.name,
+                        address: item.address,
+                        price: item.price.toString(),
+                        expiration1:  item.expiration1,
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+                       SizedBox(width: 10),   
+
+                       Expanded(
+                flex: 1,
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  child: CustomGoogleMap(
+                    key: _mapKey,
+                    center: _mapCenter,
+                    latlong: imageItems.map((item) {
+                      return LatLong(
+                        name: item.name,
+                        lat: item.latitude,
+                        long: item.longitude,
+                        location: item.location,
+                        ImagePath: item.imagePath,
+                      );
+                    }).toList(),
+                  )
+                ),        
+                       )
+                      
+                                  ]
+                                 ),
+                                 
+                                 )
+                                 ,
+                          ),
+                    
+          
              
-         ],
+                     
+             
+                ],
               ),
             //  Center(child: CircularProgressIndicator()),
       ),

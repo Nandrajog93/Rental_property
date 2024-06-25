@@ -143,7 +143,7 @@ class _ImageGridState extends State<ImageGrid> {
 void _loadCsvData() async {
   try {
     // Load raw CSV data from the file
-    final rawData = await rootBundle.loadString('/home/utente/rental_property/lib/House_dataset/house_data.csv');
+    final rawData = await rootBundle.loadString('/Users/nandrajog/Downloads/rental_property/lib/House_dataset/house_data_mac.csv');
     //print('Raw CSV Data:\n$rawData'); // Debug raw CSV data
 
     // Ensure each line is treated as a separate row

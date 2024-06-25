@@ -190,10 +190,10 @@ class _Standard_pageState extends State<Standard_page> {
     double cardHeight = DeviceConfig.getCardHeight(context);
     Color cardColor = Colors.white; 
 
-    return Scaffold(
+    return Container(
 
-      appBar: AppBar(title: Center(child: Text(widget.pageText))),
-      body : Center(
+      child: 
+       Center(
         
         child: Card(
           color: cardColor,

@@ -69,7 +69,7 @@ List<HouseItem> imageItems = [];
 
   void _loadCsvData() async {
     try {
-      final rawData = await rootBundle.loadString('/home/utente/rental_property/lib/House_dataset/house_data.csv');
+      final rawData = await rootBundle.loadString('/Users/nandrajog/Downloads/rental_property/lib/House_dataset/house_data_mac.csv');
       List<List<dynamic>> rowsAsListOfValues = const CsvToListConverter().convert(rawData, eol: '\n');
 
       List<HouseItem> loadedItems = rowsAsListOfValues.map((row) {
@@ -137,20 +137,36 @@ List<HouseItem> imageItems = [];
                           )
                         : Center(child: Text('No Image Available')),
                   ),
-                             Scaffold(
-                    body: imageItems.isNotEmpty
-                        ? Standard_page(
-                           pageText: 'Affiti del Giorno',
-                            image1: imageItems[0].imagePath,
-                            location: imageItems[0].location,
-                            description: imageItems[0].description,
-                            name: imageItems[0].name,
-                            address: imageItems[0].address,
-                            price: imageItems[0].price.toString(),
-                          )
-                        : Center(child: Text('No Image Available')),
-                  ),
-                             Scaffold(
+            
+              ListView.builder(
+                itemCount: imageItems.length,
+                itemBuilder: (context, index) {
+                  final item = imageItems[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                      child:                      Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [  
+                          Standard_page(
+                          pageText: 'Affiti Popolari',
+                              image1: item.imagePath,
+                              location: item.location,
+                              description: item.description,
+                              name: item.name,
+                              address: item.address,
+                              price: item.price.toString(),
+                          // price: item.price,
+                          
+                         )
+                          ]
+                         )
+                         );
+                         },
+                            ),
+              
+                        
+              
+                Scaffold(
                     body: imageItems.isNotEmpty
                         ? Standard_page(
                           pageText: 'Affiti Popolari',

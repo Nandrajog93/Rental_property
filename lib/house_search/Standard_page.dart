@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rental_property/house_search/Payment.dart';
+import 'package:rental_property/house_search/new_house_page.dart';
 import 'package:rental_property/src/timer.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -167,8 +168,20 @@ class Standard_page extends StatefulWidget {
   final String price;
   final String pageText;
   final int? expiration1;
+    final String extraimage1;
+  final String extraimage2;
+  final String extraimage3;
+  final String extraimage4;
+  final String extraimage5;
 
-  const Standard_page ({required this.expiration1,required this.image1, required this.location, required this.description, required this.name, required this.address, required this.price, required this.pageText});
+  
+  
+
+  const Standard_page ({        required this.extraimage1,
+    required this.extraimage2,
+    required this.extraimage3,
+    required this.extraimage4,
+    required this.extraimage5,required this.expiration1,required this.image1, required this.location, required this.description, required this.name, required this.address, required this.price, required this.pageText});
 
   @override
   State<StatefulWidget> createState() => _Standard_pageState();
@@ -178,7 +191,6 @@ class Standard_page extends StatefulWidget {
 }
 
 class _Standard_pageState extends State<Standard_page> {
-
 
 
   
@@ -239,7 +251,7 @@ Widget buildDesktopLayout (double textSize, double padding) {
           Wrap(
             children: [
 
-              Image.asset(widget.image1),
+              Center(child: Image.asset(widget.image1)),
 
         SizedBox(height: 20),
       _buildTextInfo(Colors.white, 
@@ -251,6 +263,8 @@ Widget buildDesktopLayout (double textSize, double padding) {
                     // widget.longitude as String,
                     widget.price,
                     widget.expiration1),
+                    
+     
             
           
             ],
@@ -282,7 +296,7 @@ Widget _buildTextInfo(Color cardColor, String name, String description ,String l
         if (expiration1 != null)
           Padding(
               padding: EdgeInsets.all(10),
-              child: Countdown(expiration: DateTime.now().add(Duration(hours: expiration1)),monthlyPrice: 40000, textSize:5)
+              child: Countdown(expiration: DateTime.now().add(Duration(hours: (expiration1))), textSize:5)
               ),
       
 
@@ -302,7 +316,35 @@ Widget _buildTextInfo(Color cardColor, String name, String description ,String l
                        ));
                       
                        },
-                          )  
+                          ),
+         SizedBox(height: 20),
+
+
+                        Center(
+                          child: ElevatedButton(
+                          child: Text('More Info'),
+                          onPressed: (){Navigator.push(
+                                                context,
+                                                 MaterialPageRoute(builder: (context) => Redirect_page(
+                                                
+                          image4: widget.extraimage4,
+                          image5: widget.extraimage5,
+                          name: widget.name,
+                          description:widget.description,
+                          location: widget.location,
+                          address: widget.address,
+                          // latitude:item.latitude,
+                          // longitude:item.longitude, 
+                          price: widget.price.toString(), image1: widget.extraimage1 ,image2: widget.extraimage2, image3: widget.extraimage3,
+                          // price: item.price,
+                          
+                                                 )
+                                                 )
+                                                 );
+                                                 },
+                            ),
+                        )   ,
+                          
 
       ],
         ),

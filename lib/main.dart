@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
        //colorScheme: Colors.white,
 
       ),
-      home:  ImageSearchScreen(),
+      home:  CheckUser(),
     );
   }
 }

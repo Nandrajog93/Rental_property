@@ -137,7 +137,7 @@ Widget buildMobileLayout (double textSize, double padding) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Center(
-          child: Image.asset('/home/utente/rental_property/lib/house.gif',
+          child: Image.asset('/Users/nandrajog/Downloads/rental_property/lib/house.gif',
           fit: BoxFit.cover,
           height: 150,
           ),
@@ -355,7 +355,7 @@ Widget buildTabletLayout(double textSize, double padding) {
         Expanded(
           child: Center(
             child: Image.asset(
-              '/home/utente/rental_property/lib/house.gif',
+              '/Users/nandrajog/Downloads/rental_property/lib/house.gif',
               fit: BoxFit.cover,
             ),
           ),
@@ -503,7 +503,7 @@ Widget buildDesktopLayout(double textSize, double padding) {
         Expanded(
           child: Center(
             child: Image.asset(
-              '/home/utente/rental_property/lib/house.gif',
+              '/Users/nandrajog/Downloads/rental_property/lib/house.gif',
               fit: BoxFit.cover,
             ),
           ),

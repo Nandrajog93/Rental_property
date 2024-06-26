@@ -134,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
                     Center(
             child: Image.asset(
-              '/home/utente/rental_property/lib/house.gif',
+              '/Users/nandrajog/Downloads/rental_property/lib/house.gif',
               fit: BoxFit.cover,
               height: 150, // Adjust height as needed
             ),
@@ -360,7 +360,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Expanded(
           child: Center(
             child: Image.asset(
-              '/home/utente/rental_property/lib/house.gif',
+              '/Users/nandrajog/Downloads/rental_property/lib/house.gif',
               fit: BoxFit.cover,
             ),
           ),
@@ -488,7 +488,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Expanded(
           child: Center(
             child: Image.asset(
-              '/home/utente/rental_property/lib/house.gif',
+              '/Users/nandrajog/Downloads/rental_property/lib/house.gif',
               fit: BoxFit.cover,
             ),
           ),

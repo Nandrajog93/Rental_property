@@ -1,5 +1,7 @@
 
 
+import 'dart:math';
+
 import 'package:csv/csv.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -168,7 +170,7 @@ class Standard_page extends StatefulWidget {
   final String pageText;
   final int? expiration1;
 
-  const Standard_page ({required this.expiration1,required this.image1, required this.location, required this.description, required this.name, required this.address, required this.price, required this.pageText});
+  const Standard_page ({this.expiration1,required this.image1, required this.location, required this.description, required this.name, required this.address, required this.price, required this.pageText});
 
   @override
   State<StatefulWidget> createState() => _Standard_pageState();
@@ -250,7 +252,8 @@ Widget buildDesktopLayout (double textSize, double padding) {
                     // widget.latitude as String,
                     // widget.longitude as String,
                     widget.price,
-                    widget.expiration1),
+                   widget.expiration1)
+                   // Text('Expiration: ${widget.expiration1}', style: TextStyle(fontSize: textSize)),),
             
           
             ],
@@ -322,9 +325,35 @@ return Scaffold();
 }
 
 
-Widget buildMobileLayout(double textSize, double padding) {
+Widget buildMobileLayout (double textSize, double padding) {
+  return  Scaffold(
 
-return Scaffold();
+   body: Center(
+      child: Column(
+        children: [
+          Wrap(
+            children: [
+
+              Image.asset(widget.image1),
+
+        SizedBox(height: 20),
+      _buildTextInfo(Colors.white, 
+                    widget.name,
+                    widget.description, 
+                    widget.location, 
+                    widget.address,
+                    // widget.latitude as String,
+                    // widget.longitude as String,
+                    widget.price,
+                   widget.expiration1)
+                   // Text('Expiration: ${widget.expiration1}', style: TextStyle(fontSize: textSize)),),
+            
+          
+            ],
+          ),]
+      ),
+   ),
+  );
 }
 
 }

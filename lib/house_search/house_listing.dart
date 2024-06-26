@@ -118,7 +118,7 @@ class _HouseListState extends State<HouseList> {
 
   void _loadCsvData() async {
     try {
-      final rawData = await rootBundle.loadString('/home/utente/rental_property/lib/House_dataset/house_data.csv'); // Ensure the path is correct
+      final rawData = await rootBundle.loadString('/Users/nandrajog/Downloads/rental_property/lib/House_dataset/house_data_mac.csv'); // Ensure the path is correct
       List<List<dynamic>> rowsAsListOfValues = const CsvToListConverter().convert(rawData, eol: '\n');
 
       List<ListItem> imageItems = rowsAsListOfValues.map((row) {

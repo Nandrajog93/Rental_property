@@ -401,7 +401,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: padding),
                 customTextField(_textController,  "Email", "you@example.com" ,Icons.mail, false, textSize),
                 SizedBox(height: padding / 2),
-                customTextField(_passwordController,"Password", "Enter Password" , Icons.lock, false, textSize),
+                customTextField(_passwordController,"Password", "Enter Password" , Icons.lock, true, textSize),
                 SizedBox(height: padding),
                 Align(
                   alignment: Alignment.topRight,

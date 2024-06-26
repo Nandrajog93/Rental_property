@@ -23,7 +23,16 @@ class HouseItem {
   final double longitude;
   final String address ;
   final String extraimage1;
+<<<<<<< HEAD
   final int? expiration1;
+=======
+  final int expiration1;
+  final String extraimage2;
+  final String extraimage3;
+  final String extraimage4;
+  final String extraimage5;
+  
+>>>>>>> db43cbd9ab7bd38a72d87a0e4d9b3c007805a158
 
   HouseItem( {
     required this.name,
@@ -34,8 +43,17 @@ class HouseItem {
     required this.latitude,
     required this.longitude,
     required this.address,
+<<<<<<< HEAD
     required this.extraimage1,
      this.expiration1,
+=======
+    required this.expiration1,
+    required this.extraimage1,
+    required this.extraimage2,
+    required this.extraimage3,
+    required this.extraimage4,
+    required this.extraimage5,
+>>>>>>> db43cbd9ab7bd38a72d87a0e4d9b3c007805a158
   });
 
 
@@ -50,7 +68,16 @@ class HouseItem {
       longitude: row[6],
       address: row[4].toString(),
       extraimage1: row[9].toString(),
+<<<<<<< HEAD
       expiration1: row[4] ,
+=======
+      expiration1: row[3],
+      extraimage2: row[10].toString(),
+      extraimage3: row[11].toString(),
+      extraimage4: row[12].toString(),
+      extraimage5: row[13].toString(),
+      
+>>>>>>> db43cbd9ab7bd38a72d87a0e4d9b3c007805a158
     );
   }
 }
@@ -135,19 +162,22 @@ List<HouseItem> imageItems = [];
             // Scaffold(body:  ImageGrid()),
              Scaffold(body:  ImageGrid()),
             Scaffold(body: HouseList()),
-           Scaffold(
-            appBar: AppBar(title: Center(child: Text('Affiti del Condivisi')),),
-                    body: imageItems.isNotEmpty
-                        ? Standard_page(
-                            pageText: 'Affiti Condivisi',
-                            image1: imageItems[0].imagePath,
-                            location: imageItems[0].location,
-                            description: imageItems[0].description,
-                            name: imageItems[0].name,
-                            address: imageItems[0].address,
-                            price: imageItems[0].price.toString(),
-                            expiration1: null
+          //  Scaffold(
+          //   appBar: AppBar(title: Center(child: Text('Affiti del Condivisi')),),
+          //           body: imageItems.isNotEmpty
+          //               ? Standard_page(
+          //                   pageText: 'Affiti Condivisi',
+          //                   image1: imageItems[0].imagePath,
+          //                   location: imageItems[0].location,
+          //                   description: imageItems[0].description,
+          //                   name: imageItems[0].name,
+          //                   address: imageItems[0].address,
+          //                   price: imageItems[0].price.toString(),
+          //                   expiration1: null, extraimage1: imageItems[0].extraimage5,
+          //                   extraimage2: imageItems[0].extraimage3, extraimage3: imageItems[0].extraimage1, extraimage4: imageItems[0].extraimage2, 
+          //                   extraimage5: imageItems[0].extraimage4,
 
+<<<<<<< HEAD
                           )
                         : Center(child: Text('No Image Available')),
                   ),
@@ -182,6 +212,156 @@ List<HouseItem> imageItems = [];
                         
               
                 Scaffold(
+=======
+          //                 )
+          //               : Center(child: Text('No Image Available')),
+          //         ),
+
+
+
+
+             Scaffold(
+              appBar: AppBar(title: Center(child: Text('Affiti del Condivisi')),),
+              body: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                flex: 2,
+                child: ListView.builder(
+                  itemCount: imageItems.length,
+                  itemBuilder: (context, index) {
+                    final item = imageItems[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Standard_page(
+                        pageText: 'Affiti a Ribaso',
+                        image1: item.imagePath,
+                        location: item.location,
+                        description: item.description,
+                        name: item.name,
+                        address: item.address,
+                        price: item.price.toString(),
+                        expiration1:  item.expiration1,
+                        extraimage1:item.extraimage5,
+                            extraimage2: item.extraimage3, extraimage3: item.extraimage1, extraimage4: item.extraimage2, 
+                            extraimage5: item.extraimage4,
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+                       SizedBox(width: 10),   
+
+                       Expanded(
+                flex: 1,
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  child: CustomGoogleMap(
+                    key: _mapKey,
+                    center: _mapCenter,
+                    latlong: imageItems.map((item) {
+                      return LatLong(
+                        name: item.name,
+                        lat: item.latitude,
+                        long: item.longitude,
+                        location: item.location,
+                        ImagePath: item.imagePath,
+                        
+                      );
+                    }).toList(),
+                  )
+                ),        
+                       )
+                      
+                                  ]
+                                 ),
+                                 
+                                 )
+                                 ,
+                          ),
+                  //            Scaffold(
+                  //              appBar: AppBar(title: Center(child: Text('Affiti del Giorno')),),
+                  //   body: imageItems.isNotEmpty
+                  //       ? Standard_page(
+                  //          pageText: 'Affiti del Giorno',
+                  //           image1: imageItems[0].imagePath,
+                  //           location: imageItems[0].location,
+                  //           description: imageItems[0].description,
+                  //           name: imageItems[0].name,
+                  //           address: imageItems[0].address,
+                  //           price: imageItems[0].price.toString(), expiration1: null,
+                  //           extraimage1: imageItems[0].extraimage5,
+                  //           extraimage2: imageItems[0].extraimage3, extraimage3: imageItems[0].extraimage1, extraimage4: imageItems[0].extraimage2, 
+                  //           extraimage5: imageItems[0].extraimage4,
+                  //         )
+                  //       : Center(child: Text('No Image Available')),
+                  // ),
+                               Scaffold(
+              appBar: AppBar(title: Center(child: Text('Affiti del Giorno')),),
+              body: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                flex: 2,
+                child: ListView.builder(
+                  itemCount: imageItems.length,
+                  itemBuilder: (context, index) {
+                    final item = imageItems[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Standard_page(
+                        pageText: 'Affiti a Ribaso',
+                        image1: item.imagePath,
+                        location: item.location,
+                        description: item.description,
+                        name: item.name,
+                        address: item.address,
+                        price: item.price.toString(),
+                        expiration1:  item.expiration1,
+                        extraimage1: item.extraimage5,
+                            extraimage2: item.extraimage3, extraimage3: item.extraimage1, extraimage4: item.extraimage2, 
+                            extraimage5: item.extraimage4,
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+                       SizedBox(width: 10),   
+
+                       Expanded(
+                flex: 1,
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  child: CustomGoogleMap(
+                    key: _mapKey,
+                    center: _mapCenter,
+                    latlong: imageItems.map((item) {
+                      return LatLong(
+                        name: item.name,
+                        lat: item.latitude,
+                        long: item.longitude,
+                        location: item.location,
+                        ImagePath: item.imagePath,
+                        
+                      );
+                    }).toList(),
+                  )
+                ),        
+                       )
+                      
+                                  ]
+                                 ),
+                                 
+                                 )
+                                 ,
+                          ),
+                             Scaffold(
+                              appBar: AppBar(title: Center(child: Text('Affiti a Popolari')),),
+>>>>>>> db43cbd9ab7bd38a72d87a0e4d9b3c007805a158
                     body: imageItems.isNotEmpty
                         ? Standard_page(
                           pageText: 'Affiti Popolari',
@@ -191,6 +371,9 @@ List<HouseItem> imageItems = [];
                             name: imageItems[0].name,
                             address: imageItems[0].address,
                             price: imageItems[0].price.toString(), expiration1: null,
+                            extraimage1: imageItems[0].extraimage5,
+                            extraimage2: imageItems[0].extraimage3, extraimage3: imageItems[0].extraimage1, extraimage4: imageItems[0].extraimage2, 
+                            extraimage5: imageItems[0].extraimage4,
                           )
                         : Center(child: Text('No Image Available')),
                   ),
@@ -206,6 +389,9 @@ List<HouseItem> imageItems = [];
                             name: imageItems[0].name,
                             address: imageItems[0].address,
                             price: imageItems[0].price.toString(), expiration1: null,
+                            extraimage1: imageItems[0].extraimage5,
+                            extraimage2: imageItems[0].extraimage3, extraimage3: imageItems[0].extraimage1, extraimage4: imageItems[0].extraimage2, 
+                            extraimage5: imageItems[0].extraimage4,
                           )
                         : Center(child: Text('No Image Available')),
                   ),
@@ -255,6 +441,9 @@ List<HouseItem> imageItems = [];
                         address: item.address,
                         price: item.price.toString(),
                         expiration1:  item.expiration1,
+                        extraimage1: imageItems[0].extraimage5,
+                            extraimage2: imageItems[0].extraimage3, extraimage3: imageItems[0].extraimage1, extraimage4: imageItems[0].extraimage2, 
+                            extraimage5: imageItems[0].extraimage4,
                       ),
                     );
                   },
@@ -277,6 +466,7 @@ List<HouseItem> imageItems = [];
                         long: item.longitude,
                         location: item.location,
                         ImagePath: item.imagePath,
+                        
                       );
                     }).toList(),
                   )

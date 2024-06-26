@@ -509,7 +509,7 @@ class _UserQuestionsPageState extends State<UserQuestionsPage> {
                 Expanded(
           child: Center(
             child: Image.asset(
-              '/home/utente/rental_property/lib/house.gif',
+              '/Users/nandrajog/Downloads/rental_property/lib/house.gif',
               fit: BoxFit.cover,
             ),
           ),

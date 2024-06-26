@@ -39,8 +39,8 @@ void main() async {
       projectId: "rentalproperty-ea845",
     //  storageBucket: "rentalproperty-ea845.appspot.com",
       messagingSenderId: "829048327348",
-      appId: "1:829048327348:ios:4282fa7dd32589bca69be1",
-     // appId:   "1:829048327348:web:198d4f49ce710472a69be1",
+    //  appId: "1:829048327348:ios:4282fa7dd32589bca69be1",
+      appId:   "1:829048327348:web:198d4f49ce710472a69be1",
      // measurementId: "G-PLSBFWPPFJ"
            ),
   );
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
        //colorScheme: Colors.white,
 
       ),
-      home:  LoginScreen(),
+      home:  CheckUser(),
     );
   }
 }
